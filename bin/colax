@@ -1,0 +1,36 @@
+#!/bin/bash
+
+self_dir=$(cd $(dirname $0) && pwd)
+
+usage()
+{
+    local cmd=$(basename $0)
+    cat << EOF
+usage: $cmd [command] [options]
+
+Commands:
+
+    server   Server operations.
+EOF
+
+    exit 1
+}
+
+sub_command=$1
+
+[ -z $sub_command ] && usage
+
+# initiate global environments
+COLAX_HOME=$(realpath $self_dir/..)
+
+echo $COLAX_HOME
+
+case $sub_command in
+    server)
+        shift
+        $COLAX_HOME/server/bin/server "$@"
+        ;;
+    *)
+        usage
+        ;;
+esac

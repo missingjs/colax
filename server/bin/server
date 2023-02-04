@@ -1,0 +1,31 @@
+#!/bin/bash
+
+self_dir=$(cd $(dirname $0) && pwd)
+
+usage()
+{
+    local cmd=$(basename $0)
+    cat << EOF
+usage: colax $cmd start|stop
+EOF
+    exit 1
+}
+
+operation=$1
+
+[ -z $operation ] && usage
+
+cd $self_dir
+
+case $operation in
+    start)
+        docker compose up -d
+        ;;
+    stop)
+        docker compose down -t 5
+        ;;
+    *)
+        usage
+        ;;
+esac
+
