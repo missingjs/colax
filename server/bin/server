@@ -6,7 +6,15 @@ usage()
 {
     local cmd=$(basename $0)
     cat << EOF
-usage: colax $cmd start|stop
+usage: colax $cmd [<operation>] [options]
+
+Operations:
+
+    start      Start service
+
+    stop       Stop service
+
+    status     Show status
 EOF
     exit 1
 }
@@ -23,6 +31,9 @@ case $operation in
         ;;
     stop)
         docker compose down -t 5
+        ;;
+    status)
+        docker compose ps
         ;;
     *)
         usage

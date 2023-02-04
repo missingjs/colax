@@ -29,15 +29,16 @@ services:
       - "8500:8500"
     command: "agent -node=client -bind=0.0.0.0 -client=0.0.0.0 -retry-join=consul-server1"
 
-#  cola-server:
-#    image: cola-server:latest
-#    build: ./server
-#    environment:
-#      COLA_CONSUL_HOST: consul-client
-#    networks:
-#      - consul
-#    ports:
-#      - "6677:5000"
+  colax-server:
+    image: colax-server:latest
+    build: .
+    environment:
+      COLAX_CONSUL_HOST: consul-client
+    networks:
+      - consul
+    ports:
+      - "6733:8000"
+#    command: "/bin/bash /root/run.sh"
 
 networks:
   consul:

@@ -1,1 +1,5 @@
+# python
 *.pyc
+
+# pyenv
+.python-version
