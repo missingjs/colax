@@ -11,6 +11,8 @@ usage: $cmd [command] [options]
 Commands:
 
     server   Server operations.
+
+    worker   Worker management.
 EOF
 
     exit 1
@@ -23,11 +25,15 @@ sub_command=$1
 # initiate global environments
 COLAX_HOME=$(realpath $self_dir/..)
 
-echo $COLAX_HOME
+shift
 
 case $sub_command in
-    server)
+    worker)
+        language=$1
         shift
+        $COLAX_HOME/worker/$language/bin/worker "$@"
+        ;;
+    server)
         $COLAX_HOME/server/bin/server "$@"
         ;;
     *)

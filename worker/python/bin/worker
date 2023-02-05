@@ -1,5 +1,7 @@
 #!/bin/bash
 
+self_dir=$(cd $(dirname $0) && pwd)
+
 usage()
 {
     cat << EOF
@@ -18,15 +20,21 @@ EOF
 
 operation=$1
 
+[ -z $operation ] && usage
+
+cd $self_dir
+
 case $operation in
     start)
+        docker compose up -d
         ;;
     stop)
+        docker compose down -t 5
         ;;
     status)
+        docker compose ps
         ;;
     *)
         usage
         ;;
 esac
-
