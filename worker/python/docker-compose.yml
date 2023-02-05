@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  colax-worker-python:
+    image: colax-worker-python:latest
+    build: .
+    networks:
+      - colax-python
+    ports:
+      - "6743:8000"
+
+networks:
+  colax-python:
+    driver: bridge
