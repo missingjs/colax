@@ -4,10 +4,9 @@ services:
   
   consul-server1:
     image: hashicorp/consul:1.14
-    container_name: consul-server1
     restart: always
     networks:
-      - consul
+      - colax-server-net
     expose:
       - "8300"
       - "8301/tcp"
@@ -21,10 +20,9 @@ services:
 
   consul-client:
     image: hashicorp/consul:1.14
-    container_name: consul-client
     restart: always
     networks:
-      - consul
+      - colax-server-net
     ports:
       - "8500:8500"
     command: "agent -node=client -bind=0.0.0.0 -client=0.0.0.0 -retry-join=consul-server1"
@@ -35,11 +33,10 @@ services:
     environment:
       COLAX_CONSUL_HOST: consul-client
     networks:
-      - consul
+      - colax-server-net
     ports:
       - "6733:8000"
-#    command: "/bin/bash /root/run.sh"
 
 networks:
-  consul:
-    driver: bridge
+  colax-server-net:
+    name: colax-server

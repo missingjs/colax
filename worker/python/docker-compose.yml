@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 
 services:
   colax-worker-python:
@@ -11,4 +11,5 @@ services:
 
 networks:
   colax-python:
-    driver: bridge
+    name: colax-server
+    external: true
