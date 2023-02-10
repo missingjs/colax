@@ -1,1 +1,2 @@
-sanic
+aiohttp[speedups]
+sanic>=22.12.0

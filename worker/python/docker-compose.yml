@@ -6,6 +6,9 @@ services:
     build: .
     networks:
       - colax-python
+    environment:
+      - COLAX_CONSUL_ADDR: consul-client:8500
+      - COLAX_WORKER_HOST: colax-worker-python
     ports:
       - "6743:8000"
 
