@@ -22,10 +22,17 @@ operation=$1
 
 [ -z $operation ] && usage
 
+function prepare_volumes()
+{
+    local top_dir="$HOME/.colax/volumes/worker/python/problems"
+    [ -e $top_dir ] || mkdir -p $top_dir || exit
+}
+
 cd $self_dir
 
 case $operation in
     start)
+        prepare_volumes
         docker compose up -d
         ;;
     stop)

@@ -6,15 +6,12 @@ usage()
 {
     local cmd=$(basename $0)
     cat << EOF
-usage: $cmd [command] [options]
+usage: $cmd <command> [options]
 
 Commands:
-
     server   Server operations.
-
-    worker   Worker management.
+    worker   Worker management. E.g. $cmd worker <lang> [options...]
 EOF
-
     exit 1
 }
 
@@ -30,6 +27,7 @@ shift
 case $sub_command in
     worker)
         language=$1
+        [ -z $language ] && usage
         shift
         $COLAX_HOME/worker/$language/bin/worker "$@"
         ;;
