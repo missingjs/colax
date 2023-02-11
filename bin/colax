@@ -9,7 +9,9 @@ usage()
 usage: $cmd <command> [options]
 
 Commands:
+    project  Create colax project
     server   Server operations.
+    solu     Create or Submit solutions.
     worker   Worker management. E.g. $cmd worker <lang> [options...]
 EOF
     exit 1
@@ -20,7 +22,9 @@ sub_command=$1
 [ -z $sub_command ] && usage
 
 # initiate global environments
-COLAX_HOME=$(realpath $self_dir/..)
+export COLAX_HOME=$(realpath $self_dir/..)
+
+colax_project_file=colax.conf
 
 shift
 
@@ -29,10 +33,19 @@ case $sub_command in
         language=$1
         [ -z $language ] && usage
         shift
-        $COLAX_HOME/worker/$language/bin/worker "$@"
+        $COLAX_HOME/worker/$language/bin/worker.sh "$@"
         ;;
     server)
         $COLAX_HOME/server/bin/server "$@"
+        ;;
+    project)
+        bash $self_dir/script.files/project.sh "$@"
+        ;;
+    solu)
+        language=$1
+        [ -z $language ] && usage
+        shift
+        $COLAX_HOME/worker/$language/bin/solu.sh "$@"
         ;;
     *)
         usage
