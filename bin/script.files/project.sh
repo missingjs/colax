@@ -18,7 +18,7 @@ cmd=$1
 function create_project()
 {
     local prj_name=$1
-    local prj_file="${prj_name}.conf"
+    local prj_file="colax.proj.conf"
     [ -e $prj_file ] && { echo "Error: $prj_file already exist"; exit 3; }
     cat >$prj_file <<EOF
 project_name = $prj_name

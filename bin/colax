@@ -9,10 +9,13 @@ usage()
 usage: $cmd <command> [options]
 
 Commands:
-    project  Create colax project
-    server   Server operations.
-    solu     Create or Submit solutions.
-    worker   Worker management. E.g. $cmd worker <lang> [options...]
+    project        Create colax project
+
+    server         Server operations.
+
+    solu <lang>    Create or Submit solutions.
+
+    worker         Worker management. E.g. $cmd worker <lang> [options...]
 EOF
     exit 1
 }
@@ -42,10 +45,7 @@ case $sub_command in
         bash $self_dir/script.files/project.sh "$@"
         ;;
     solu)
-        language=$1
-        [ -z $language ] && usage
-        shift
-        $COLAX_HOME/worker/$language/bin/solu.sh "$@"
+        bash $self_dir/script.files/solution.sh "$@"
         ;;
     *)
         usage
