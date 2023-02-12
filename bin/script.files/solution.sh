@@ -3,26 +3,31 @@
 usage()
 {
     cat <<EOF
-usage: colax solu <command> [options]
+usage: colax solu <command> <lang> [options]
 
 Commands:
-    new <lang>    create solution in specific language
-    run <lang>    submit solution
+    new    create solution in specific language
+    run    submit solution
 EOF
     exit 1
 }
 
 cmd=$1
+language=$2
+[ -z $language ] && usage
+entry=$COLAX_HOME/worker/$language/bin/solu.sh
+[ -e $entry ] || { echo "Error: language $language not supported"; exit 5; }
 
 case $cmd in
     new)
-        language=$2
-        [ -z $language ] && usage
-        entry=${COLAX_HOME}/worker/$language/bin/solu.sh
-        [ -e $entry ] || { echo "language $language not supported"; exit 5; }
-        bash $entry create
+        filename=$(bash $entry filename)
+        [ -e $filename ] && { echo "Error: $filename already exist"; exit 4; }
+        bash $entry template > $filename || exit
+        echo "$filename OK"
         ;;
     run)
+        filename=$(bash $entry filename)
+        python3 $COLAX_HOME/bin/script.files/submit.py $language $filename
         ;;
     *)
         usage
