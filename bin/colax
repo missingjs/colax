@@ -13,7 +13,7 @@ Commands:
 
     server         Server operations.
 
-    solu <lang>    Create or Submit solutions.
+    solu           Create or Submit solutions.
 
     worker         Worker management. E.g. $cmd worker <lang> [options...]
 EOF

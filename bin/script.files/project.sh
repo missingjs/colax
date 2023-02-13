@@ -23,6 +23,18 @@ function create_project()
     cat >$prj_file <<EOF
 project_name = $prj_name
 EOF
+
+    cat >colax-test.json <<EOF
+{
+    "tests": [
+        {
+            "args": [1, 2],
+            "result": 3
+        }
+    ]
+}
+EOF
+
     echo "Project $prj_name created"
 }
 
