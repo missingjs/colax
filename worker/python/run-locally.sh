@@ -8,4 +8,4 @@ ip=$(ifconfig | grep docker0 -A 1 | grep inet | awk '{print $2}')
 
 export COLAX_WORKER_HOST=$ip
 
-sanic --access-logs --host 0.0.0.0 --port 8000 colax.worker.server:app
+sanic --access-logs --host 0.0.0.0 --port 6743 colax.worker.server:app

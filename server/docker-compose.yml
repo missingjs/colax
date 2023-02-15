@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  
+
   consul-server1:
     image: hashicorp/consul:1.14
     restart: always
@@ -27,15 +27,15 @@ services:
       - "8500:8500"
     command: "agent -node=client -bind=0.0.0.0 -client=0.0.0.0 -retry-join=consul-server1"
 
-  colax-server:
-    image: colax-server:latest
-    build: .
-    environment:
-      COLAX_CONSUL_HOST: consul-client
-    networks:
-      - colax-server-net
-    ports:
-      - "6733:8000"
+  # colax-server:
+  #   image: colax-server:latest
+  #   build: .
+  #   environment:
+  #     COLAX_CONSUL_ADDR: consul-client
+  #   networks:
+  #     - colax-server-net
+  #   ports:
+  #     - "6733:8000"
 
 networks:
   colax-server-net:
