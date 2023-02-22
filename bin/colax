@@ -13,7 +13,7 @@ Commands:
 
     server         Server operations.
 
-    solu           Create or Submit solutions.
+    solution       Create or Submit solutions. Use 'so' as short
 
     worker         Worker management. E.g. $cmd worker <lang> [options...]
 EOF
@@ -44,7 +44,7 @@ case $sub_command in
     project)
         bash $self_dir/script.files/project.sh "$@"
         ;;
-    solu)
+    so | solution)
         bash $self_dir/script.files/solution.sh "$@"
         ;;
     *)
