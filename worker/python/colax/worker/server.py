@@ -9,7 +9,7 @@ app = Sanic("colax-worker-python")
 consul_address = os.environ["COLAX_CONSUL_ADDR"]
 
 service_host = os.environ["COLAX_WORKER_HOST"]
-service_port = 8000
+service_port = int(os.environ.get("COLAX_WORKER_PORT", "8000"))
 
 
 @app.get("/")
@@ -34,13 +34,13 @@ async def register_service():
                 "HTTP": f"http://{service_host}:{service_port}/health",
                 "DeregisterCriticalServiceAfter": "1m",
                 "Interval": "10s",
-                "Timeout": "5s"
+                "Timeout": "5s",
             },
-            "EnableTagOverride": True
+            "EnableTagOverride": True,
         }
         async with session.put(url, json=body) as response:
             assert response.status >= 200 and response.status < 300
             print(response.headers)
 
-app.add_task(register_service())
 
+app.add_task(register_service())
